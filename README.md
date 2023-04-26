@@ -17,12 +17,6 @@ The demo application in folder src/main contains a PinkDB application with some 
 
 For installation access to a `sysdba` user is required (e.g. `sys`).
 
-```mermaid
-C4Context
-title Demo App
-person(developer, "Application developer")
-```
-
 ## PinkDB Tests
 
 The folder src/test contains utPLSQL tests. These tests are no application specific. They are generic tests that can be applied to any PinkDB application. The tests need to be installed in the schema owning the API and the data. For the demo app that's `demoapp_api`.
