@@ -11,12 +11,12 @@ The demo application in folder src/main contains a PinkDB application with some 
 | User | Description | Used in Production? |
 | ---- | ----------- | ------------------- |
 | `developer` | Personal user. Used for development. | No |
-| `demoapp_test` | Technical user. Used by testing tools. | No |
-| `demoapp_connect` | Technical user. Used to by middle tier to connect. | Yes |
-| `demoapp_api` | Schema-only account. Owns the data and the API. Proxy connection allowed via `developer` and `tester`. | Yes |
+| `app_tester` | Technical user. Used by testing tools. | No |
+| `app_connect` | Technical user. Used to by middle tier to connect. | Yes |
+| `app` | Schema-only account. Owns the data and the API. Proxy connection allowed via `developer` and `app_tester`. | Yes |
 
-For installation access to a `sysdba` user is required (e.g. `sys`).
+A user with `dba` privileges is required for installation (e.g. `sys`, `system`, `pdbadmin`).
 
 ## PinkDB Tests
 
-The folder src/test contains utPLSQL tests. These tests are no application specific. They are generic tests that can be applied to any PinkDB application. The tests need to be installed in the schema owning the API and the data. For the demo app that's `demoapp_api`.
+The folder src/test contains utPLSQL tests. These tests are no application specific. They are generic tests that can be applied to any PinkDB application. The tests need to be installed in the schema owning the API and the data. For the demo app that's `demoapp`.
