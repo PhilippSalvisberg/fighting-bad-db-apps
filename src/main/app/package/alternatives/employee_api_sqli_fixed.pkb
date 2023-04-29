@@ -30,8 +30,8 @@ create or replace package body employee_api is
    begin
       upd_col(
          in_employee_id => in_employee_id,
-         in_column_name => 'empno',
-         in_value       => in_employee_id
+         in_column_name => 'ename',
+         in_value       => in_employee_name
       );
    end set_name;
 
