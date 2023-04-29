@@ -55,7 +55,7 @@ begin
       execute immediate 'grant debug any procedure to app';
       sys.dbms_output.put_line('debug privileges granted.');
       if not is_rac() then
-         -- we assume that a RAC instance is running in the OracleCloud where we cannot dbms_jdwp_debug
+         -- we assume that a RAC instance is running in the OracleCloud where we cannot use dbms_jdwp_debug
          sys.dbms_network_acl_admin.append_host_ace(
             host => '*',
             ace  => sys.xs$ace_type(
