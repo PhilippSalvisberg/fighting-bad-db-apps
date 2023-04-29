@@ -8,10 +8,10 @@ begin
          default tablespace users
          quota unlimited on users
    ]';
-   sys.dbms_output.put_line('schema created.');
+   sys.dbms_output.put_line('schema app created.');
 exception
    when e_user_exists then
-      sys.dbms_output.put_line('schema already exists.');
+      sys.dbms_output.put_line('schema app already exists.');
 end;
 /
 
