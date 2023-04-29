@@ -10,7 +10,7 @@ utplsql run app_tester[app]/app_tester@xepdb1 \
     -f=ut_documentation_reporter      -o=test_results.log -s
 
 # produce HTML result of JUnit results since SonarQube does not provide test details
-junit-viewer --results=junit_test_results.xml --save=junit_test_results.html
+xunit-viewer -r junit_test_results.xml -o junit_test_results.html
 
 # coverage.xml contains wrong lines when a package in src/main/app/package/alternative is active
 cp sound_coverage.xml coverage.xml
