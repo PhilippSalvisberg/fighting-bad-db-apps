@@ -114,7 +114,6 @@ prompt department_api.pkb...
 prompt employee_api.pkb...
 @src/main/app/package/employee_api.pkb
 
-
 prompt
 prompt ================================================================================================================
 prompt APP: grants
