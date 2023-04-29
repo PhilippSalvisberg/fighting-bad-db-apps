@@ -9,3 +9,7 @@
 
 # Windows
 Thumbs.db
+
+# SonarQube
+.sonar_lock
+report-task.txt
