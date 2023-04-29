@@ -19,7 +19,7 @@ create or replace package body employee_api is
       co_templ constant clob := q'[update emp set #col# = :value where empno = :empno]';
       l_sql    clob;
    begin
-      l_sql := replace(co_templ, '#col#', sys.dbms_assert.sql_object_name(in_column_name));
+      l_sql := replace(co_templ, '#col#', sys.dbms_assert.simple_sql_name(in_column_name));
       execute immediate l_sql using in_value, in_employee_id;
    end upd_col;
 
