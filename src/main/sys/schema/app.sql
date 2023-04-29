@@ -42,7 +42,8 @@ declare
       select count(*)
         into l_found
         from v$instance
-       where database_type = 'RAC';
+       where database_type = 'RAC'
+         and rownum = 1;
       return l_found > 0;
    end is_rac;
 begin
