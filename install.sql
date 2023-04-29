@@ -132,6 +132,22 @@ prompt public_synonyms_api.sql...
 
 prompt
 prompt ================================================================================================================
+prompt APP: utPLSQL tests (in non-production environments only)
+prompt ================================================================================================================
+
+set define on
+define script_name=install_test.sql
+column script_name noprint new_value script_name
+select 'noop.sql' as script_name
+  from dual
+ where sys_context('userenv', 'instance_name') = 'PROD';
+
+prompt &&script_name...
+@&script_name
+set define off
+
+prompt
+prompt ================================================================================================================
 prompt End of install.sql
 prompt ================================================================================================================
 
