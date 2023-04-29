@@ -23,6 +23,6 @@ using (
 commit;
 
 begin
-   dbms_stats.gather_table_stats(ownname => 'app', tabname => 'dept');
+   sys.dbms_stats.gather_table_stats(ownname => 'app', tabname => 'dept');
 end;
 /

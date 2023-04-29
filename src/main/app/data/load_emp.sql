@@ -139,6 +139,6 @@ using (
 commit;
 
 begin
-   dbms_stats.gather_table_stats(ownname => 'app', tabname => 'emp');
+   sys.dbms_stats.gather_table_stats(ownname => 'app', tabname => 'emp');
 end;
 /
