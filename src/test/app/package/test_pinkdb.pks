@@ -1,6 +1,6 @@
 create or replace package test_pinkdb is
    --%suite
-   --%suitepath(pinkdb)
+   --%suitepath(app.pinkdb)
 
    --%test
    procedure app_schema_privileges;
