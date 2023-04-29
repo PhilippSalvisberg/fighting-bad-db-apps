@@ -21,6 +21,26 @@ end;
 /
 
 prompt ================================================================================================================
+prompt drop roles
+prompt ================================================================================================================
+
+declare
+   e_role_does_not_exist exception;
+   pragma exception_init(e_role_does_not_exist, -1919);
+   --
+   procedure drop_role(in_role in varchar2) is
+   begin
+      execute immediate 'drop role ' || sys.dbms_assert.simple_sql_name(in_role);
+   exception
+      when e_role_does_not_exist then
+         null;
+   end drop_role;
+begin
+   drop_role('api_role');
+end;
+/
+
+prompt ================================================================================================================
 prompt drop users
 prompt ================================================================================================================
 
