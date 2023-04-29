@@ -13,3 +13,10 @@ Thumbs.db
 # SonarQube
 .sonar_lock
 report-task.txt
+
+# utPLSQL
+coverage.html_assets
+coverage.html
+coverage.xml
+junit_test_results.xml
+test_results.xml
