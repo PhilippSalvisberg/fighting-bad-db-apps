@@ -13,16 +13,17 @@ begin
                default tablespace users
                quota unlimited on users
          ]';
-         sys.dbms_output.put_line('user created.');
+         sys.dbms_output.put_line('user app_connect created.');
       end if;
    exception
       when e_user_exists then
-         sys.dbms_output.put_line('user already exists.');
+         sys.dbms_output.put_line('user app_connect already exists.');
    end create_user;
    <<grant_privs>>
    begin
       -- default privileges
       execute immediate 'grant create session to app_connect';
+      execute immediate 'grant api_role to app_connect';
    end grant_privs;
 end;
 /
