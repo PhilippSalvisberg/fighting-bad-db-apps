@@ -87,11 +87,10 @@ create or replace package body test_employee_api is
       -- assert
       -- expected exceptions:
       -- - ORA-06502: PL/SQL: numeric or value error: character string buffer too small (value_error) with employee_api.pkb 
-      -- - ORA-12899: value too large for column "APP"."EMP"."JOB" (actual: 16, maximum: 9) with employee_api_sqli.pkb
-      -- - ORA-44002: invalid object name with employee_api_sqli_fixed.pkb
+      -- - ORA-12899: value too large for column "APP"."EMP"."JOB" (actual: 16, maximum: 9) 
+      --   with employee_api_sqli.pkb and employee_api_sqli_fixed.pkb
       ut.fail('Runtime exception expected.');
    end set_job_too_long;
-
 
    -- -----------------------------------------------------------------------------------------------------------------
    -- set_job_try_sqli
@@ -103,10 +102,10 @@ create or replace package body test_employee_api is
       -- arrange
       set_salary;
       
-      -- act
+      -- act: SQL injection
       employee_api.set_job(
-         in_employee_id => -1,
-         in_job         => q'[S',sal='9]' -- SQLi: try to set job to 'S' and sal to 9
+         in_employee_id => -1, -- JACEK
+         in_job         => q'[S',sal='9]' -- try to set job to 'S' and sal to 9
       );
 
       -- assert
@@ -114,6 +113,35 @@ create or replace package body test_employee_api is
       open c_expected for select q'[S',sal='9]' as job, 4700 as sal from dual;
       ut.expect(c_actual).to_equal(c_expected);
    end set_job_try_sqli;
+
+   -- -----------------------------------------------------------------------------------------------------------------
+   -- set_job_try_sqli_too_long
+   -- -----------------------------------------------------------------------------------------------------------------
+   procedure set_job_try_sqli_too_long is
+      c_actual   sys_refcursor;
+      c_expected sys_refcursor;
+   begin
+      -- arrange
+      set_salary;
+      
+      -- act: SQL injection
+      employee_api.set_job(
+         in_employee_id => 7788, -- SCOTT
+         in_job         => q'[SALESMAN',sal='9000]' -- try to job to 'SALESMAN' and sal to 9000
+      );
+      
+      -- assert 1) data
+      open c_actual for select job, sal from emp where empno = 7788;
+      open c_expected for select 'ANALYST' as job, 3000 as sal from dual;
+      ut.expect(c_actual).to_equal(c_expected);
+
+      -- assert 2) exception
+      -- expected exceptions:
+      -- - ORA-06502: PL/SQL: numeric or value error: character string buffer too small (value_error) with employee_api.pkb 
+      -- - ORA-12899: value too large for column "APP"."EMP"."JOB" (actual: 19, maximum: 9) with employee_api_sqli_fixed.pkb
+      -- with employee_api_sqli.pkb no exception is thrown, because SQL injection is possible (no value_error!)
+      ut.fail('Runtime exception expected.');
+   end set_job_try_sqli_too_long;
 
    -- -----------------------------------------------------------------------------------------------------------------
    -- set_hiredate

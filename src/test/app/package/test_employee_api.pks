@@ -16,11 +16,15 @@ create or replace package test_employee_api is
    procedure set_job;
 
    --%test
-   --%throws(value_error, -12899, -44002)
-   procedure set_job_too_long;
+   --%throws(value_error, -12899)
+   procedure set_job_too_long; 
    
    --%test
    procedure set_job_try_sqli;
+
+   --%test
+   --%throws(value_error, -12899)
+   procedure set_job_try_sqli_too_long;
    
    --%endcontext
 
