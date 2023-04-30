@@ -19,7 +19,7 @@ To install the application run [install.sql](install.sql) when connected as an O
 
 ## PinkDB and PoLP Tests
 
-The folder src/test contains utPLSQL tests. In addition to the functional tests, there is a test suite named [test_pinkdb](test/app/package/test_pinkdb.pks) that validates the following features of a [PinkDB](https://www.salvis.com/blog/2018/07/18/the-pink-database-paradigm-pinkdb/) application:
+The folder src/test contains utPLSQL tests. In addition to the functional tests, there is a test suite named [test_pinkdb](src/test/app/package/test_pinkdb.pks) that validates the following features of a [PinkDB](https://www.salvis.com/blog/2018/07/18/the-pink-database-paradigm-pinkdb/) application:
 
 | Feature | Test | Notes |
 | ------- | ---- | ----- |
