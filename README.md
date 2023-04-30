@@ -42,7 +42,7 @@ In addition, the `app_schema_privileges` test verfies that the [Principle of Lea
 | `DEBUG CONNECT SESSION` | No  | No |
 | `DEBUG ANY PROCEDURE`   | No  | No |
 
-Some privileges are required only in development and test environments. And all of them are required at install time only. This means after a successful installation of the application all privileges of the `app` schema can be revoked. This can be done with the [revoke_app_privs.sql](revoke_app_privs.sql) script.
+Some privileges are required only in development and test environments. And all of them are required at install time only. This means after a successful installation of the application all privileges of the `app` schema can be revoked. This can be done with the [lockdown.sql](lockdown.sql) script, that removes everything that is not required to run the app in production.
 
 ## SQL Injection Tests
 
