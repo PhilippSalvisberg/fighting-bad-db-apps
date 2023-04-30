@@ -11,11 +11,11 @@ The demo application in folder src/main contains a [PinkDB](https://www.salvis.c
 | User | Description | Used in Production? |
 | ---- | ----------- | ------------------- |
 | `developer` | Personal user. Used for development. | No |
-| `app_tester` | Technical user. Used by testing tools. | No |
-| `app_connect` | Technical user. Used to by middle tier to connect. | Yes |
+| `app_tester` | Technical user. Used by utPLSQL-cli. | No |
+| `app_connect` | Technical user. Used to by the front-end application/middle tier to connect. | Yes |
 | `app` | Schema-only account. Owns the data and the API. Proxy connection allowed via `developer` and `app_tester`. | Yes |
 
-To install the application run [install.sql](install.sql) when connected as an Oracle user with `dba` privileges (e.g. `sys`, `system`, `pdbadmin`). The script is [idempondent](https://en.wikipedia.org/wiki/Idempotence). 
+To install the application run [install.sql](install.sql) when connected as an Oracle user with `dba` privileges (e.g. `sys`, `system`, `pdbadmin`). The script is [idempondent](https://en.wikipedia.org/wiki/Idempotence). utPLSQL tests are also installed, unless the database instance is named `PROD`. 
 
 ## PinkDB and PoLP Tests
 
@@ -26,7 +26,7 @@ The folder src/test contains utPLSQL tests. In addition to the functional tests,
 | 1. Connect user does not own database objects. | `connect_user_objects` | No exceptions. |
 | 2. The connect user has access to API objects only. | `connect_user_privileges` | Only `CREATE SESSION` and `API_ROLE` allowed. |
 | | `connect_direct_object_privs` | No directly granted objects allowed (access is granted via `API_ROLE`). |
-| 3. The API consists of stored objects and views | api_role_object_privs | Tables are not part of the API and objects granted to `API_ROLE` must be owned by `APP`. |
+| 3. The API consists of stored objects and views | `api_role_object_privs` | Tables are not part of the API and objects granted to `API_ROLE` must be owned by `APP`. |
 
 In addition, the `app_schema_privileges` test verfies that the [Principle of Least Privileges (PoLP)](https://en.wikipedia.org/wiki/Principle_of_least_privilege) is followed for the `app` schema. The following privileges are allowed:
 
@@ -43,3 +43,12 @@ In addition, the `app_schema_privileges` test verfies that the [Principle of Lea
 | `DEBUG ANY PROCEDURE`   | No  | No |
 
 Some privileges are required only in development and test environments. And all of them are required at install time only. This means after a successful installation of the application all privileges of the `app` schema can be revoked. This can be done with the [revoke_app_privs.sql](revoke_app_privs.sql) script.
+
+## SQL Injection Tests
+
+There are tests to check whether the `employee_api.set_job` procedure is vulnerable to SQL injection. See the following two tests in [test_employee_api](src/test/app/package/test_employee_api.pks):
+
+- `set_job_try_sqli`
+- `set_job_try_sqli_too_long`
+
+Another way to detect SQL injection vulnerarbilities is to use static code analysis. For example the [SQLInjection validator](https://github.com/Trivadis/plsql-cop-validators#sqlinjection) is part of the composite validator TrivadisGuidelines3Plus	and can be used in [db* CODECOP CLI](https://github.com/Trivadis/plsql-cop-validators#use-in-db-codecop), [SQL Developer](https://github.com/Trivadis/plsql-cop-validators#use-in-db-codecop-for-sql-developer) or [SonarQube](https://github.com/Trivadis/plsql-cop-validators#use-in-db-codecop-for-sonarqube).
