@@ -48,9 +48,9 @@ declare
    e_user_does_not_exist exception;
    pragma exception_init(e_user_does_not_exist, -1918);
    --
-   procedure drop_user(in_user in varchar2) is -- NOSONAR: G-8310
+   procedure drop_user(in_user in varchar2) is
    begin
-      execute immediate 'drop user ' -- NOSONAR: G-6010
+      execute immediate 'drop user '
          || sys.dbms_assert.simple_sql_name(in_user)
          || ' cascade';
       sys.dbms_output.put_line(in_user || ' dropped.');
