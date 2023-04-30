@@ -57,7 +57,7 @@ Another way to detect SQL injection vulnerarbilities is to use static code analy
 
 All utPLSQL tests should complete successfully after the installation via [install.sql](install.sql). You can change that by installing some bad stuff via [install_bad_stuff.sql](install_bad_stuff.sql) as an Oracle DBA. 
 
-After installing the bad stuff you can connedt as `developer[app]` and run the following:
+After installing the bad stuff you can connect as `developer[app]` and run the following:
 
 ```sql
 set serveroutput on size unlimited
